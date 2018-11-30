@@ -1,0 +1,48 @@
+* { padding: 0; margin: 0; }
+html, body, .body {
+    min-height: 100% !important;
+    height: 100%;
+    background: #272b30;
+    width: 100%;
+}
+.header{
+	height: 150px;
+	background: #1c1e22;
+	color: #ffe300;
+}
+.headerContainer h2{
+	text-align: center;
+	width: 200px;
+}
+.form{
+	height: 100px;
+}
+.formContainer input{
+	width: 150px;
+}
+.flex{
+	display: flex;
+	align-items: center;
+  	justify-content: center;
+}
+#result{
+	justify-content: space-between;
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	color: white;
+}
+#result div{
+	height: 150px;
+	width: 19%;
+	border: 1px solid white;
+}
+#result div p{
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
+}
+input{
+	margin: 0 auto;
+	width: 200px;
+}

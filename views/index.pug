@@ -1,0 +1,68 @@
+html
+	block head
+		title= title
+		block styles
+			link(rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css")
+			link(rel="stylesheet" type="text/css" href="/style.css")
+		script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+		script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous")
+	body
+		div.body
+			div.header.flex
+				div.headerContainer
+					h1 STARS WARS
+					h2 MEETIC
+					h2 API
+			div.form.flex
+				div.formContainer
+					form(action='/' id='searchForm')
+						label(for='autocomplete')
+							input(type='text', name='name', placeholder='Search' id='autocomplete')
+						button(type='submit') submit
+			div(id='result').flex
+
+
+script.
+	var tab = !{JSON.stringify(tab)}
+	console.log(tab)
+	$("#autocomplete").autocomplete({source : tab})
+	$("#searchForm").submit(function( event ) {
+		var div ='', i = 0, j = 0
+		var tab = []
+		event.preventDefault()
+		var $term = $(this).find( "input[name='name']" ).val()
+		var url = $(this).attr( "action" )
+		$.post( url, { name: $term } ).done(function(data) {
+			if(typeof(data) == 'object')
+				$( "#result" ).empty().append(data)
+			else
+			{
+				var parse = JSON.parse(data)
+				for(i in parse){
+					div += '<div>'
+					div += '<p><b>Name : </b>'+ parse[i].name + '</p>'
+					div += '<p><b>Species : </b>'+ parse[i].species +'</p>'
+					div += '<p><b>Home Planet : </b>' + parse[i].planet +'</p>'
+					div += '<p><b>Age : </b>' + parse[i].age +'</p>'
+					div += '<p><b>Match Percentage : </b>' + parse[i].percent +'</p>'
+					div += '</div>'
+					if(!(i == 0) && (i % 5) == 0){
+						tab[j] = div
+						j++
+						div = ''
+					}
+				}
+				if(div.length > 0)
+					tab[j] = div
+				i = 0
+				while(i <= j){
+					if(i == 0)
+						document.getElementById("result").innerHTML = tab[i++]
+					else
+						document.getElementById("result").innerHTML += tab[i++]		
+				}
+			}
+		});
+	});
+
+
